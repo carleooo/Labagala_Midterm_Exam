@@ -1,0 +1,178 @@
+/* Design: minimalist light grey canvas, Poppins, near-black ink, black pill buttons,
+   thin top bar with a centered menu, big bold left-aligned headlines. */
+
+:root {
+  --bg: #ececec;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #666666;
+  --line: #d9d9d9;
+  --soft: #f5f5f5;
+  --danger: #b42318;
+
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); min-height: 100vh; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.page { min-height: 100vh; display: flex; flex-direction: column; }
+.page > main { flex: 1; }
+.muted { color: var(--muted); }
+
+/* ---------- Top bar ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+  padding: 0 40px;
+  background: rgba(236, 236, 236, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  justify-self: start; background: none; border: 0; padding: 0; cursor: pointer;
+  font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap;
+}
+.site-nav { display: flex; gap: 28px; }
+.nav-link {
+  position: relative; background: none; border: 0; cursor: pointer; white-space: nowrap;
+  padding: 22px 0; font-size: 0.75rem; font-weight: 500; color: var(--ink);
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--ink); transform: scaleX(0); transition: transform 0.2s ease;
+}
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.header-note {
+  justify-self: end; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ---------- Home hero ---------- */
+.hero {
+  max-width: 1120px; margin: 0 auto; padding: 12vh 40px 8vh;
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start;
+}
+.hero h1 {
+  margin: 0 0 24px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.08;
+  font-size: clamp(2.4rem, 5.4vw, 4.2rem);
+}
+.hero h1 span { display: block; }
+.hero-copy p { max-width: 340px; margin: 0 0 32px; color: var(--muted); font-size: 0.8rem; }
+
+.hero-index { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.hero-index button {
+  width: 100%; display: grid; grid-template-columns: 40px 1fr auto; align-items: baseline; gap: 8px;
+  padding: 16px 4px; background: none; border: 0; border-bottom: 1px solid var(--line);
+  cursor: pointer; text-align: left;
+}
+.hero-index button:hover { background: rgba(255, 255, 255, 0.65); }
+.idx { color: var(--muted); font-size: 0.7rem; font-weight: 500; }
+.idx-title { font-weight: 600; font-size: 0.95rem; }
+.idx-hook { color: var(--muted); font-size: 0.72rem; }
+
+/* ---------- Pager dashes ---------- */
+.pager { display: flex; justify-content: center; gap: 6px; padding: 24px 0 36px; }
+.pager-dash { position: relative; width: 44px; height: 24px; background: none; border: 0; cursor: pointer; }
+.pager-dash::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 11px; height: 2px; background: #c2c2c2;
+}
+.pager-dash:hover::before { background: #7a7a7a; }
+.pager-dash.active::before { background: var(--ink); }
+
+/* ---------- Exam page ---------- */
+.exam-wrap { max-width: 900px; width: 100%; margin: 0 auto; padding: 48px 20px 8px; }
+.exam-panel { background: var(--surface); border-radius: 12px; padding: 40px; }
+.eyebrow {
+  margin: 0 0 8px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.exam-panel h2 {
+  margin: 0 0 24px; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15;
+  font-weight: 700; letter-spacing: -0.025em;
+}
+.exam-panel section > h3 {
+  margin: 32px 0 8px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 26px; border: 1px solid var(--ink); border-radius: 999px;
+  background: var(--ink); color: #fff; cursor: pointer;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: opacity 0.15s ease;
+}
+.btn:hover:not(:disabled) { opacity: 0.82; }
+.btn.secondary { background: transparent; color: var(--ink); }
+.btn.secondary[aria-pressed='true'] { background: var(--ink); color: #fff; }
+.btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ---------- Forms ---------- */
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0; }
+label { font-size: 0.85rem; }
+input[type='text'], input[type='email'], input[type='password'], input[type='number'], select {
+  font: inherit; font-size: 0.9rem; padding: 10px 12px; color: inherit; background: #fff;
+  border: 1px solid #bdbdbd; border-radius: 6px;
+}
+input[type='checkbox'] { accent-color: var(--ink); width: 16px; height: 16px; }
+input[aria-invalid='true'] { border-color: var(--danger); }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; max-width: 360px; }
+.field label { font-weight: 600; }
+.error { color: var(--danger); font-size: 0.85rem; margin: 0; }
+
+/* ---------- Content pieces ---------- */
+.card { border-radius: 10px; padding: 16px 20px; margin: 16px 0; background: var(--soft); }
+.big-number { font-size: 3.4rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 8px; }
+.big-number .muted { font-weight: 500; }
+.status {
+  display: inline-block; padding: 4px 14px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600; background: #e8e8e8;
+}
+.status.in-progress { background: #d2d2d2; }
+.status.reached { background: var(--ink); color: #fff; }
+
+details { margin-top: 28px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 10px; }
+details summary { cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+details p, details li { font-size: 0.85rem; }
+code { background: #efefef; padding: 1px 6px; border-radius: 4px; font-size: 0.85em; }
+pre { background: var(--ink); color: #f5f5f5; padding: 14px; border-radius: 8px; overflow-x: auto; }
+pre code { background: transparent; padding: 0; }
+
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid #ececec; }
+.list li .grow { flex: 1; }
+.scroll { max-height: 320px; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px; margin-top: 8px; }
+.product-row { cursor: pointer; }
+.product-row:hover { background: var(--soft); }
+.product-row.selected { background: #e6e6e6; }
+.done-title { text-decoration: line-through; color: var(--muted); }
+
+/* ---------- Exam 4: preference themes ---------- */
+.dashboard { border-radius: 12px; padding: 20px; border: 1px solid transparent; }
+.dashboard.theme-light { background: var(--soft); color: var(--ink); border-color: var(--line); }
+.dashboard.theme-dark { background: #161616; color: #f5f5f5; border-color: #333; }
+.dashboard .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.dashboard .panel { padding: 14px 16px; border-radius: 10px; margin-bottom: 14px; }
+.theme-light .panel { background: #ffffff; }
+.theme-dark .panel { background: #232323; }
+.article { padding: 16px 18px; border-radius: 10px; border: 1px solid currentColor; }
+.theme-light .article { background: #fff; }
+.theme-dark .article { background: #0c0c0c; }
+.theme-dark :focus-visible { outline-color: #fff; }
+.theme-dark .btn.secondary { color: #f5f5f5; border-color: #f5f5f5; }
+.theme-dark .btn.secondary[aria-pressed='true'] { background: #f5f5f5; color: #161616; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 900px) {
+  .site-header { grid-template-columns: auto 1fr; padding: 0 16px; }
+  .header-note { display: none; }
+  .site-nav { justify-self: end; gap: 18px; overflow-x: auto; max-width: 100%; }
+  .hero { grid-template-columns: 1fr; padding: 48px 20px 24px; gap: 40px; }
+  .exam-panel { padding: 24px 18px; }
+}
